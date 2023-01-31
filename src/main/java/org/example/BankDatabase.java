@@ -55,12 +55,10 @@ public class BankDatabase {
         Gson gson = new Gson();
 
         try {
-            InputStream is = BankDatabase.class.getResourceAsStream(DATABASE_FILE);
+            //Source for the changes: https://mkyong.com/java/java-read-a-file-from-resources-folder
+            InputStream is = BankDatabase.class.getClassLoader().getResourceAsStream(DATABASE_FILE);
             //Check if "is" is null https://stackoverflow.com/questions/13571960/java-spring-how-to-use-classpath-to-specify-a-file-location
             Reader reader = new InputStreamReader(is);
-
-
-
             Type listType = new TypeToken<List<Account>>() {}.getType();
             accounts = gson.fromJson(reader, listType);
             reader.close();
