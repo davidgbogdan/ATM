@@ -54,27 +54,22 @@ public class BankDatabase {
         return null;
     }
 
-    public void loadAccounts(){
+    public void loadAccounts() {
         ObjectMapper mapper = new ObjectMapper();
-
-        try {
-            //Source for the changes: https://mkyong.com/java/java-read-a-file-from-resources-folder
-            InputStream is = BankDatabase.class.getClassLoader().getResourceAsStream(DATABASE_FILE);
-            //Check if "is" is null https://stackoverflow.com/questions/13571960/java-spring-how-to-use-classpath-to-specify-a-file-location
-            Reader reader = new InputStreamReader(is);
+        //Source for the changes: https://mkyong.com/java/java-read-a-file-from-resources-folder
+        //Check if "is" is null https://stackoverflow.com/questions/13571960/java-spring-how-to-use-classpath-to-specify-a-file-location
+        try (InputStream is = BankDatabase.class.getClassLoader().getResourceAsStream(DATABASE_FILE);
+             Reader reader = new InputStreamReader(is)) {
             accounts = mapper.readValue(reader, new TypeReference<List<Account>>(){});
-            reader.close();
         } catch (IOException e) {
             System.out.println("Error loading accounts from file: " + e.getMessage());
         }
     }
 
-    public void saveAccounts(){
+    public void saveAccounts() {
         ObjectMapper mapper = new ObjectMapper();
-        try {
-            FileWriter writer = new FileWriter(DATABASE_FILE);
+        try (FileWriter writer = new FileWriter(DATABASE_FILE)) {
             mapper.writeValue(writer, accounts);
-            writer.close();
         } catch (IOException e) {
             System.out.println("Error saving accounts to file: " + e.getMessage());
         }
