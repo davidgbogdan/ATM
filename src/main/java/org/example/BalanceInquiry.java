@@ -14,7 +14,7 @@ public class BalanceInquiry extends Transaction {
         double totalBalance = bankDatabase.getTotalBalance(getAccountNumber());
 
         screen.displayMessageLine("Balance Information:");
-        screen.displayMessage(" - Available balance: ");
+        screen.displayMessage("Available balance: ");
         screen.displayDollarAmount(availableBalance);
         screen.displayMessage("Total balance: ");
         screen.displayDollarAmount(totalBalance);

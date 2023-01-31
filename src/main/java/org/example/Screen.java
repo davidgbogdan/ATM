@@ -13,6 +13,6 @@ public class Screen {
     }
 
     public void displayDollarAmount(double amount) {
-        System.out.printf("$",amount);
+        System.out.println(amount);
     }
 }
