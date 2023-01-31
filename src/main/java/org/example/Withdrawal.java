@@ -1,5 +1,8 @@
 package org.example;
 
+import lombok.Data;
+
+@Data
 public class Withdrawal extends Transaction {
     private Keypad keypad;
     private final static int AMOUNT_20 = 20;
@@ -12,7 +15,6 @@ public class Withdrawal extends Transaction {
         super(userAccountNumber, atmScreen, atmBankDatabase);
         keypad = atmKeypad;
     }
-
 
     @Override
     public void execute() {

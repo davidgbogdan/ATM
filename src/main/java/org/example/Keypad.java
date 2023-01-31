@@ -1,7 +1,11 @@
 package org.example;
 
-import java.util.Scanner;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
+import java.util.Scanner;
+@Data
+@AllArgsConstructor
 public class Keypad {
     private Scanner input;
     private Screen screen;

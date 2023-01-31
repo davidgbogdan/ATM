@@ -1,5 +1,8 @@
 package org.example;
 
+import lombok.Data;
+
+@Data
 public class Deposit extends Transaction {
     private double amount;
     private Keypad keypad;
