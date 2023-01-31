@@ -1,7 +1,8 @@
 package org.example;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 
 import java.io.*;
@@ -54,15 +55,14 @@ public class BankDatabase {
     }
 
     public void loadAccounts(){
-        Gson gson = new Gson();
+        ObjectMapper mapper = new ObjectMapper();
 
         try {
             //Source for the changes: https://mkyong.com/java/java-read-a-file-from-resources-folder
             InputStream is = BankDatabase.class.getClassLoader().getResourceAsStream(DATABASE_FILE);
             //Check if "is" is null https://stackoverflow.com/questions/13571960/java-spring-how-to-use-classpath-to-specify-a-file-location
             Reader reader = new InputStreamReader(is);
-            Type listType = new TypeToken<List<Account>>() {}.getType();
-            accounts = gson.fromJson(reader, listType);
+            accounts = mapper.readValue(reader, new TypeReference<List<Account>>(){});
             reader.close();
         } catch (IOException e) {
             System.out.println("Error loading accounts from file: " + e.getMessage());
@@ -70,10 +70,10 @@ public class BankDatabase {
     }
 
     public void saveAccounts(){
-        Gson gson = new Gson();
+        ObjectMapper mapper = new ObjectMapper();
         try {
             FileWriter writer = new FileWriter(DATABASE_FILE);
-            gson.toJson(accounts, writer);
+            mapper.writeValue(writer, accounts);
             writer.close();
         } catch (IOException e) {
             System.out.println("Error saving accounts to file: " + e.getMessage());
