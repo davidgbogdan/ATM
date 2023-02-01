@@ -2,13 +2,16 @@ package org.example;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Data
-@AllArgsConstructor
 public class BalanceInquiry extends Transaction {
+
     public BalanceInquiry(int accountNumber, Screen screen, BankDatabase bankDatabase) {
         super(accountNumber, screen, bankDatabase);
     }
+
     @Override
     public void execute() {
         BankDatabase bankDatabase = getBankDatabase();

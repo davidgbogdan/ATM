@@ -1,21 +1,19 @@
 package org.example;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.Data;
 
 import java.io.*;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
-public class BankDatabase {
+public enum BankDatabase {
+    INSTANCE;
+
     private List<Account> accounts;
     private final String DATABASE_FILE = "bankdatabase.json";
 
-    public BankDatabase() {
+    BankDatabase() {
         accounts = new ArrayList<>();
         loadAccounts();
     }
@@ -56,8 +54,6 @@ public class BankDatabase {
 
     public void loadAccounts() {
         ObjectMapper mapper = new ObjectMapper();
-        //Source for the changes: https://mkyong.com/java/java-read-a-file-from-resources-folder
-        //Check if "is" is null https://stackoverflow.com/questions/13571960/java-spring-how-to-use-classpath-to-specify-a-file-location
         try (InputStream is = BankDatabase.class.getClassLoader().getResourceAsStream(DATABASE_FILE);
              Reader reader = new InputStreamReader(is)) {
             accounts = mapper.readValue(reader, new TypeReference<List<Account>>(){});
@@ -74,4 +70,5 @@ public class BankDatabase {
             System.out.println("Error saving accounts to file: " + e.getMessage());
         }
     }
+
 }

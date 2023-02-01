@@ -13,7 +13,7 @@ public class ATM {
     private int currentAccountNumber;
 
     public ATM() {
-        bankDatabase = new BankDatabase();
+        bankDatabase = BankDatabase.INSTANCE;
         screen = new Screen();
         keypad = new Keypad(screen);
         userAuthenticated = false;
