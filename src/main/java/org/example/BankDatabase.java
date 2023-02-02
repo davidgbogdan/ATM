@@ -13,11 +13,13 @@ public enum BankDatabase {
     private List<Account> accounts;
     private final String DATABASE_FILE = "bankdatabase.json";
 
-    BankDatabase() {
+    BankDatabase(){
         accounts = new ArrayList<>();
         loadAccounts();
     }
-
+    public static BankDatabase getInstance(){
+        return INSTANCE;
+    }
     public boolean authenticateUser(int accountNumber, int pin) {
         Account userAccount = getAccount(accountNumber);
         if (userAccount != null && userAccount.validatePin(pin)) {

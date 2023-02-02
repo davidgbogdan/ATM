@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public abstract class Transaction {
     private int accountNumber;
     private Screen screen;
-    private BankDatabase bankDatabase;
+    private BankDatabase bankDatabase = BankDatabase.getInstance();
 
     public abstract void execute();
 }
