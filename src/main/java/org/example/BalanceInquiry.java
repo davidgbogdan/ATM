@@ -1,9 +1,6 @@
 package org.example;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 @Data
 public class BalanceInquiry extends Transaction {
@@ -17,14 +14,11 @@ public class BalanceInquiry extends Transaction {
         BankDatabase bankDatabase = getBankDatabase();
         Screen screen = getScreen();
 
-        double availableBalance = bankDatabase.getAvailableBalance(getAccountNumber());
-        double totalBalance = bankDatabase.getTotalBalance(getAccountNumber());
+        double balance = bankDatabase.getBalance(getAccountNumber());
 
         screen.displayMessageLine("Balance Information:");
-        screen.displayMessage("Available balance: ");
-        screen.displayDollarAmount(availableBalance);
         screen.displayMessage("Total balance: ");
-        screen.displayDollarAmount(totalBalance);
+        screen.displayDollarAmount(balance);
         screen.displayMessageLine("");
     }
 }

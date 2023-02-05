@@ -22,7 +22,7 @@ public class Withdrawal extends Transaction {
         double availableBalance;
 
         while (!cashDispensed) {
-            availableBalance = getBankDatabase().getAvailableBalance(getAccountNumber());
+            availableBalance = getBankDatabase().getBalance(getAccountNumber());
             getScreen().displayMessageLine("Withdrawal Menu:");
             getScreen().displayMessageLine("1 - $20");
             getScreen().displayMessageLine("2 - $40");

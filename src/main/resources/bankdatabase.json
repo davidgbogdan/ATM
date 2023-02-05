@@ -2,25 +2,21 @@
   {
     "accountNumber": 1,
     "pin": 1111,
-    "availableBalance": 1000.0,
-    "totalBalance": 2000.0
+    "balance": 1000.0
   },
   {
     "accountNumber": 2,
     "pin": 2222,
-    "availableBalance": 1000.0,
-    "totalBalance": 2000.0
+    "balance": 1000.0
   },
   {
     "accountNumber": 3,
     "pin": 3333,
-    "availableBalance": 1000.0,
-    "totalBalance": 2000.0
+    "balance": 1000.0
   },
   {
     "accountNumber": 4,
     "pin": 4444,
-    "availableBalance": 1000.0,
-    "totalBalance": 2000.0
+    "balance": 1000.0
   }
 ]

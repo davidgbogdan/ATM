@@ -9,17 +9,18 @@ import java.util.List;
 
 public enum BankDatabase {
     INSTANCE;
-
     private List<Account> accounts;
     private final String DATABASE_FILE = "bankdatabase.json";
 
-    BankDatabase(){
+    BankDatabase() {
         accounts = new ArrayList<>();
         loadAccounts();
     }
-    public static BankDatabase getInstance(){
+
+    public static BankDatabase getInstance() {
         return INSTANCE;
     }
+
     public boolean authenticateUser(int accountNumber, int pin) {
         Account userAccount = getAccount(accountNumber);
         if (userAccount != null && userAccount.validatePin(pin)) {
@@ -29,12 +30,8 @@ public enum BankDatabase {
         }
     }
 
-    public double getAvailableBalance(int accountNumber) {
-        return getAccount(accountNumber).getAvailableBalance();
-    }
-
-    public double getTotalBalance(int accountNumber) {
-        return getAccount(accountNumber).getTotalBalance();
+    public double getBalance(int accountNumber) {
+        return getAccount(accountNumber).getBalance();
     }
 
     public void credit(int accountNumber, double amount) {
@@ -58,7 +55,8 @@ public enum BankDatabase {
         ObjectMapper mapper = new ObjectMapper();
         try (InputStream is = BankDatabase.class.getClassLoader().getResourceAsStream(DATABASE_FILE);
              Reader reader = new InputStreamReader(is)) {
-            accounts = mapper.readValue(reader, new TypeReference<List<Account>>(){});
+            accounts = mapper.readValue(reader, new TypeReference<List<Account>>() {
+            });
         } catch (IOException e) {
             System.out.println("Error loading accounts from file: " + e.getMessage());
         }
