@@ -9,8 +9,8 @@ import java.util.List;
 
 public enum BankDatabase {
     INSTANCE;
-    private List<Account> accounts;
     private final String DATABASE_FILE = "bankdatabase.json";
+    private List<Account> accounts;
 
     BankDatabase() {
         accounts = new ArrayList<>();

@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public abstract class Transaction {
     private int accountNumber;
-    private Screen screen;
     private BankDatabase bankDatabase = BankDatabase.getInstance();
 
     public abstract void execute();

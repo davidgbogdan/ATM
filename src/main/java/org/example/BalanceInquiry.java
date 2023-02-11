@@ -5,19 +5,19 @@ import lombok.Data;
 @Data
 public class BalanceInquiry extends Transaction {
 
-    public BalanceInquiry(int accountNumber, Screen screen, BankDatabase bankDatabase) {
-        super(accountNumber, screen, bankDatabase);
+    public BalanceInquiry(int accountNumber, BankDatabase bankDatabase) {
+        super(accountNumber, bankDatabase);
     }
 
     @Override
     public void execute() {
         BankDatabase bankDatabase = getBankDatabase();
-        Screen screen = getScreen();
+        Screen screen = new Screen();
 
         double balance = bankDatabase.getBalance(getAccountNumber());
 
         screen.displayMessageLine("Balance Information:");
-        screen.displayMessage("Total balance: ");
+        screen.displayMessageLine("Total balance: ");
         screen.displayDollarAmount(balance);
         screen.displayMessageLine("");
     }

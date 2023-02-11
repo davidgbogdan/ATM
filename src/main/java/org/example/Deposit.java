@@ -6,10 +6,13 @@ import lombok.Data;
 public class Deposit extends Transaction {
     private double amount;
     private Keypad keypad;
+    private Screen screen;
 
-    public Deposit(int accountNumber, Screen screen, BankDatabase bankDatabase, Keypad keypad) {
-        super(accountNumber, screen, bankDatabase);
+    public Deposit(int accountNumber, BankDatabase bankDatabase, Screen screen, Keypad keypad) {
+        super(accountNumber, bankDatabase);
         this.keypad = keypad;
+        this.screen = screen;
+
     }
 
     @Override
@@ -23,7 +26,7 @@ public class Deposit extends Transaction {
     }
 
     private double promptForDepositAmount() {
-        getScreen().displayMessage("Enter deposit amount: ");
+        getScreen().displayMessageLine("Enter deposit amount: ");
         int input = keypad.getInput();
         if (input <= 0) {
             getScreen().displayMessageLine("Invalid amount. Please try again.");

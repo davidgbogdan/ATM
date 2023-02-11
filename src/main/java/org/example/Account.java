@@ -22,9 +22,11 @@ public class Account {
 
     public void credit(double amount) {
         balance += amount;
+        BankDatabase.getInstance().saveAccounts();
     }
 
     public void debit(double amount) {
         balance -= amount;
+        BankDatabase.getInstance().saveAccounts();
     }
 }

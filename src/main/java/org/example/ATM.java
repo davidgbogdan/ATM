@@ -15,7 +15,7 @@ public class ATM {
     public ATM() {
         bankDatabase = BankDatabase.INSTANCE;
         screen = new Screen();
-        keypad = new Keypad(screen);
+        keypad = new Keypad();
         userAuthenticated = false;
         currentAccountNumber = 0;
     }
@@ -34,9 +34,9 @@ public class ATM {
     }
 
     private void authenticateUser() {
-        screen.displayMessage("Please enter your account number: ");
+        screen.displayMessageLine("Please enter your account number: ");
         int accountNumber = keypad.getInput();
-        screen.displayMessage("Enter your PIN: ");
+        screen.displayMessageLine("Enter your PIN: ");
         int pin = keypad.getInput();
 
         userAuthenticated =
@@ -58,16 +58,16 @@ public class ATM {
 
             switch (mainMenuSelection) {
                 case 1 -> {
-                    currentTransaction = new BalanceInquiry(currentAccountNumber, screen, bankDatabase);
+                    currentTransaction = new BalanceInquiry(currentAccountNumber, bankDatabase);
                     currentTransaction.execute();
                 }
                 case 2 -> {
-                    currentTransaction = new Withdrawal(currentAccountNumber, screen, bankDatabase, keypad);
+                    currentTransaction = new Withdrawal(currentAccountNumber, bankDatabase, screen, keypad);
                     currentTransaction.execute();
                 }
                 case 3 -> {
                     currentTransaction =
-                            new Deposit(currentAccountNumber, screen, bankDatabase, keypad);
+                            new Deposit(currentAccountNumber, bankDatabase, screen, keypad);
                     currentTransaction.execute();
                 }
                 case 4 -> {
@@ -85,9 +85,7 @@ public class ATM {
         screen.displayMessageLine("2 - Withdraw cash");
         screen.displayMessageLine("3 - Deposit funds");
         screen.displayMessageLine("4 - Exit");
-        screen.displayMessage("Enter a choice: ");
+        screen.displayMessageLine("Enter a choice: ");
         return keypad.getInput();
     }
-
-
 }

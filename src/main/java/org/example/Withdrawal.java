@@ -4,18 +4,19 @@ import lombok.Data;
 
 @Data
 public class Withdrawal extends Transaction {
-    private Keypad keypad;
     private final static int AMOUNT_20 = 20;
     private final static int AMOUNT_40 = 40;
     private final static int AMOUNT_60 = 60;
     private final static int AMOUNT_100 = 100;
     private final static int AMOUNT_200 = 200;
+    private Keypad keypad;
+    private Screen screen;
 
-    public Withdrawal(int userAccountNumber, Screen atmScreen, BankDatabase atmBankDatabase, Keypad atmKeypad) {
-        super(userAccountNumber, atmScreen, atmBankDatabase);
-        keypad = atmKeypad;
+    public Withdrawal(int userAccountNumber, BankDatabase atmBankDatabase, Screen screen, Keypad keypad) {
+        super(userAccountNumber, atmBankDatabase);
+        this.screen = screen;
+        this.keypad = keypad;
     }
-
     @Override
     public void execute() {
         boolean cashDispensed = false;
@@ -30,7 +31,7 @@ public class Withdrawal extends Transaction {
             getScreen().displayMessageLine("4 - $100");
             getScreen().displayMessageLine("5 - $200");
             getScreen().displayMessageLine("6 - Cancel transaction");
-            getScreen().displayMessage("Choose a withdrawal amount: ");
+            getScreen().displayMessageLine("Choose a withdrawal amount: ");
 
             int selection = keypad.getInput();
 
@@ -44,8 +45,7 @@ public class Withdrawal extends Transaction {
             }
         }
     }
-
-    private boolean doSomething(double availableBalance, double amount){
+    private boolean doSomething(double availableBalance, double amount) {
         if (availableBalance >= amount) {
             getBankDatabase().debit(getAccountNumber(), amount);
             getScreen().displayMessageLine("Please take your cash from the dispenser.");
@@ -55,7 +55,5 @@ public class Withdrawal extends Transaction {
             return false;
         }
     }
-
-
 }
 
